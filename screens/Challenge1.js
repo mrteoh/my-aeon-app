@@ -7,8 +7,18 @@ export default function Challenge1() {
   const [total, setTotal] = useState(null);
 
   const calculateSum = () => {
-    const first = parseFloat(num1) || 0;
-    const second = parseFloat(num2) || 0;
+    // Remove any non-digit and non-decimal characters
+    const cleanNum1 = num1.replace(/[^0-9.]/g, '');
+    const cleanNum2 = num2.replace(/[^0-9.]/g, '');
+
+    // Update the input fields to show cleaned values
+    setNum1(cleanNum1);
+    setNum2(cleanNum2);
+
+    // Convert to float and calculate sum
+    const first = parseFloat(cleanNum1) || 0;
+    const second = parseFloat(cleanNum2) || 0;
+
     setTotal(first + second);
   };
 
@@ -21,7 +31,11 @@ export default function Challenge1() {
         placeholder="Enter first number"
         keyboardType="numeric"
         value={num1}
-        onChangeText={setNum1}
+        onChangeText={(text) => {
+          // Remove any non-digit and non-decimal characters
+          const clean = text.replace(/[^0-9.]/g, '');
+          setNum1(clean);
+        }}
       />
 
       <TextInput
@@ -29,7 +43,10 @@ export default function Challenge1() {
         placeholder="Enter second number"
         keyboardType="numeric"
         value={num2}
-        onChangeText={setNum2}
+        onChangeText={(text) => {
+          const clean = text.replace(/[^0-9.]/g, '');
+          setNum2(clean);
+        }}
       />
 
       {/* Custom Styled Button */}
