@@ -1,10 +1,8 @@
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
-import { useState, useLayoutEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 
 export default function Challenge2() {
-  const [showNavbar, setShowNavbar] = useState(false);
-  const navigation = useNavigation();
+  const [showList, setShowList] = useState(false); // controls FlatList visibility
 
   const listData = [
     { id: '1', title: 'Showcase' },
@@ -16,41 +14,38 @@ export default function Challenge2() {
     { id: '7', title: 'Enterprise' }
   ];
 
-  // Provide toggleNavbar to the + icon in the header
-  useLayoutEffect(() => {
-    navigation.setParams({
-      toggleNavbar: () => setShowNavbar((prev) => !prev),
-    });
-  }, [navigation]);
+  const toggleList = () => {
+    setShowList(prev => !prev);
+  };
 
   return (
     <View style={styles.container}>
       {/* Navbar */}
-      {showNavbar && (
-        <View>
-          <View style={styles.navbar}>
-            <Text style={styles.title}>AEON</Text>
-            <View style={styles.rightIcons}>
-              <TouchableOpacity>
-                <Text style={styles.icon}>🔍</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setShowNavbar(false)}>
-                <Text style={styles.icon}>✖</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          {/* List under navbar */}
-          <FlatList
-            data={listData}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View style={styles.listItem}>
-                <Text style={styles.listText}>{item.title}</Text>
-              </View>
-            )}
-          />
+      <View style={styles.navbar}>
+        <Text style={styles.title}>AEON</Text>
+        <View style={styles.rightIcons}>
+          {showList && (
+            <TouchableOpacity>
+              <Text style={styles.icon}>🔍</Text>
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity onPress={toggleList}>
+            <Text style={styles.icon}>{showList ? '✖' : '☰'}</Text>
+          </TouchableOpacity>
         </View>
+      </View>
+
+      {/* FlatList shows only when showList is true */}
+      {showList && (
+        <FlatList
+          data={listData}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={styles.listItem} onPress={() => { /* no action */ }}>
+              <Text style={styles.listText}>{item.title}</Text>
+            </TouchableOpacity>
+          )}
+        />
       )}
     </View>
   );
@@ -70,19 +65,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#ddd',
   },
+  rightIcons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   icon: {
-    fontSize: 22,
+    fontSize: 24,
     color: '#000',
-    marginHorizontal: 8,
+    marginLeft: 10,
   },
   title: {
     fontSize: 18,
     color: '#000',
     fontWeight: 'bold',
-  },
-  rightIcons: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   listItem: {
     padding: 15,

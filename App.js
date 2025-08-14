@@ -15,6 +15,7 @@ function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.content}>
         <Text>Welcome to My AEON App!</Text>
+        <Text>Please select the Challenge below</Text>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -37,13 +38,6 @@ export default function App() {
         <Stack.Screen
           name="Challenge2"
           component={Challenge2}
-          options={({ route }) => ({
-            headerRight: () => (
-              <TouchableOpacity onPress={route.params?.toggleNavbar}>
-                <Text style={{ fontSize: 24, marginRight: 15 }}>➕</Text>
-              </TouchableOpacity>
-            ),
-          })}
         />
         <Stack.Screen name="Challenge3" component={Challenge3} />
       </Stack.Navigator>
