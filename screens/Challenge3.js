@@ -6,7 +6,6 @@ export default function Challenge3() {
   const [numbers, setNumbers] = useState('');
   const [target, setTarget] = useState('');
   const [result, setResult] = useState([]);
-  console.log('--- result',result)
 
   const handleTwoSum = async () => {
     const nums = numbers

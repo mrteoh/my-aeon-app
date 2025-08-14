@@ -19,9 +19,7 @@ Make sure you have the following installed on your machine:
 
 $ expo init my-aeon-app
 $ cd my-aeon-app
-$ npm install @react-navigation/native
-$ npm install react-native-screens react-native-safe-area-context
-$ npm install @react-navigation/native-stack
+$ npm i
 $ npm start
 
 ## Folder structure
